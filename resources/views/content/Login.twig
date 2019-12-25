@@ -24,7 +24,7 @@
                 </div>
             </div>
             <div :class="{'modal-footer justify-content-between px-2': modalElement, 'row': !modalElement}">
-                <div class="col-6 pl-2" :class="{'col-12': !modalElement}">
+                <div class="col-6" :class="{'col-12 pl-2': !modalElement}">
                     <a href="javascript:void(0)" @click="showResetPwdView" class="text-appearance">{{ trans("Ceres::Template.loginForgotPassword") }}?</a>
                 </div>
                 <div class="col-6" :class="{'col-12': !modalElement}">
