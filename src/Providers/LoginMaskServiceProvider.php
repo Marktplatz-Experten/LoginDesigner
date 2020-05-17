@@ -1,9 +1,14 @@
 <?php
 
-namespace LoginMask\Providers;
+namespace  LoginMask\Providers;
 
 use Plenty\Plugin\ServiceProvider;
-use Plenty\Modules\Webshop\Template\Providers\TemplateServiceProvider;
+use Plenty\Plugin\Events\Dispatcher;
+use Plenty\Plugin\Templates\Twig;
+use IO\Helper\TemplateContainer;
+use IO\Extensions\Functions\Partial;
+use IO\Helper\ResourceContainer;
+
 
 class LoginMaskServiceProvider extends TemplateServiceProvider
 {
@@ -11,16 +16,11 @@ class LoginMaskServiceProvider extends TemplateServiceProvider
 	{
 
 	}
-	public function boot()
-    {    
-		{
-			$this->overrideTemplate("Ceres::Customer.Components.LoginView", "LoginMask::content.LoginView");
-		}		   
-		{
-			$this->overrideTemplate("Ceres::Customer.Components.GuestLogin", "LoginMask::content.GuestLogin");
-		}
-		{
-			$this->overrideTemplate("Ceres::Customer.Components.Login", "LoginMask::content.Login");
-		}
-	}	
+        public function boot(Twig $twig, Dispatcher $dispatcher)
+        {
+            $dispatcher->listen("IO.Resources.Import", function(ResourceContainer $container)
+            {         
+               $container->addScriptTemplate('LoginMask::ItemList.Components.CategoryItem'); 
+            },0);
+        }	
 }
